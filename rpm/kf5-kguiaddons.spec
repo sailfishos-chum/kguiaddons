@@ -44,19 +44,11 @@ developing applications that use %{name}.
 export QTDIR=%{_opt_qt5_prefix}
 touch .git
 
-mkdir -p build
-pushd build
-
-%_opt_cmake_kf5 ../ \
-		-DWITH_X11=OFF
-%make_build
-
-popd
+%_opt_cmake_kf5 -DWITH_X11=OFF
+%cmake_build
 
 %install
-pushd build
-make DESTDIR=%{buildroot} install
-popd
+%cmake_install
 
 
 %post -p /sbin/ldconfig
